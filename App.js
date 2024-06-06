@@ -3,8 +3,6 @@ import { Text, View, Image, FlatList } from "react-native";
 import { categoriesData } from "./mockData/category.data";
 
 export default function App() {
-  const height = 180;
-  const width = 180;
   return (
     <View // View Container
       style={{
@@ -14,11 +12,30 @@ export default function App() {
         padding: 10
       }}
     >
-      <FlatList
+      <FlatList //imported from react native
         data={categoriesData}
         renderItem={(category) => {
-          <View></View>;
+          return (
+            <View
+              style={{
+                //styling the nested view
+                backgroundColor: "white",
+                borderRadius: 25,
+                width: 155,
+                height: 167,
+                marginRight: 20,
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <Image source={category.item.image} />
+              <Text style={{ color: "black" }}>{category.item.title}</Text>
+            </View>
+          );
         }}
+        keyExtractor={(category) => category.id}
+        numColumns={2}
+        contentContainerStyle={{ gap: 20, marginHorizontal: 20 }}
       />
     </View>
   );
