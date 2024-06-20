@@ -149,7 +149,7 @@ const App = () => {
                 <FlashList
                   data={featuredProducts}
                   renderItem={({ item }) => (
-                    <TouchableOpacity
+                    <View
                       style={{
                         height: wp(59),
                         width: wp(45),
@@ -159,7 +159,7 @@ const App = () => {
                         marginRight: wp(2)
                       }}
                     >
-                      <View
+                      <TouchableOpacity
                         style={{
                           alignItems: "center",
                           justifyContent: "center",
@@ -176,7 +176,7 @@ const App = () => {
                           }}
                           source={item.image}
                         />
-                      </View>
+                      </TouchableOpacity>
                       <View
                         style={{
                           padding: wp(2)
@@ -205,7 +205,7 @@ const App = () => {
                           />
                         </View>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   )}
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
@@ -252,7 +252,7 @@ const App = () => {
                       }}
                       className="rounded-3xl flex flex-row"
                     >
-                      <View
+                      <TouchableOpacity
                         style={{
                           width: wp(30),
                           height: wp(35)
@@ -267,7 +267,7 @@ const App = () => {
                           }}
                           source={item.image}
                         />
-                      </View>
+                      </TouchableOpacity>
                       <View
                         style={{
                           padding: wp(5)
