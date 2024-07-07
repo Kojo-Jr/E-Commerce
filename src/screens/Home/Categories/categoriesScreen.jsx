@@ -3,12 +3,12 @@ import { Text, View, Image, FlatList } from "react-native";
 // import { categoriesData } from "./mockData/category.data";
 import { categoriesData } from "../../../../mockData/category.data";
 
-export default function App() {
+export default function CategoriesScreen() {
   return (
     <View // View Container
       style={{
         flex: 1,
-        backgroundColor: "black",
+        backgroundColor: "#FAFAFA",
         marginTop: 50,
         padding: 10
       }}
@@ -37,6 +37,7 @@ export default function App() {
         keyExtractor={(category) => category.id}
         numColumns={2}
         contentContainerStyle={{ gap: 20, marginHorizontal: 20 }}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );

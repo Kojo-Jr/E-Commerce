@@ -14,7 +14,7 @@ export const featuredProducts = [
   {
     id: 2,
     image: require("../assets/mock_images/products/featuredproducts/samsungearbud.png"),
-    name: "Samsung Ear buds",
+    name: "Samsung Ear bud",
     price: "GHS 800.00"
   },
   {
