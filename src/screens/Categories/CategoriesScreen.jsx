@@ -1,9 +1,8 @@
-import { StatusBar } from "expo-status-bar";
-import { Text, View, Image, FlatList } from "react-native";
-// import { categoriesData } from "./mockData/category.data";
-import { categoriesData } from "../../../../mockData/category.data";
+import { View, Text } from "react-native";
+import React from "react";
+import { categoriesData } from "../../../mockData/category.data";
 
-export default function CategoriesScreen() {
+const CategoriesScreen = () => {
   return (
     <View // View Container
       style={{
@@ -15,7 +14,7 @@ export default function CategoriesScreen() {
     >
       <FlatList //imported from react native
         data={categoriesData}
-        renderItem={(category) => {
+        renderItem={({ item }) => {
           return (
             <View
               style={{
@@ -29,16 +28,18 @@ export default function CategoriesScreen() {
                 alignItems: "center"
               }}
             >
-              <Image source={category.item.image} />
-              <Text style={{ color: "black" }}>{category.item.title}</Text>
+              <Image source={item.image} />
+              <Text style={{ color: "black" }}>{item.title}</Text>
             </View>
           );
         }}
-        keyExtractor={(category) => category.id}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         contentContainerStyle={{ gap: 20, marginHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
       />
     </View>
   );
-}
+};
+
+export default CategoriesScreen;

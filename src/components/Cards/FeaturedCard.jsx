@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { featuredProducts } from "../../../mockData/featuredproducts.data";
 
-const featured = () => {
+const FeaturedCard = () => {
   return (
     <View style={Styles.featuredContainer}>
       <View style={Styles.featuredHeader}>
@@ -45,7 +45,7 @@ const featured = () => {
   );
 };
 
-export default featured;
+export default FeaturedCard;
 
 const Styles = StyleSheet.create({
   featuredContainer: {

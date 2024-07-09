@@ -2,10 +2,12 @@ import { StyleSheet, View } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
-import Featured from "../../../components/Cards/Featured";
-import SearchBox from "../../../components/Textinputs/SearchBox";
-import Banner from "../../../components/Cards/Banner";
-import Products from "../../../components/Cards/Products";
+import SearchBox from "../../../components/TextInputs/SearchBox";
+import {
+  BannerCard,
+  FeaturedCard,
+  ProductCard
+} from "../../../components/Cards";
 
 const MainScreen = () => {
   return (
@@ -17,14 +19,14 @@ const MainScreen = () => {
               {/* SearchBox */}
               <SearchBox />
 
-              {/* Banner Section */}
-              <Banner />
+              {/* Banner Card */}
+              <BannerCard />
 
-              {/* Featured Products */}
-              <Featured />
+              {/* Featured Card */}
+              <FeaturedCard />
 
-              {/* Products */}
-              <Products />
+              {/* Product Card */}
+              <ProductCard />
             </View>
           );
         }}

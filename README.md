@@ -1,1 +1,1 @@
-# RN-CLASS_1
+# E-Commerce Mobile App

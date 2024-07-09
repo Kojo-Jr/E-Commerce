@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const Banner = () => {
+const BannerCard = () => {
   return (
     <View style={Styles.bannerContainer}>
       <Image
@@ -18,7 +18,7 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default BannerCard;
 
 const Styles = StyleSheet.create({
   bannerContainer: {

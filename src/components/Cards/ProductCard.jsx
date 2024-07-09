@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
 
-const Products = () => {
+const ProductCard = () => {
   return (
     <View style={Styles.productsContainer}>
       <View style={Styles.productsHeader}>
@@ -50,7 +50,7 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductCard;
 
 const Styles = StyleSheet.create({
   productsContainer: {
