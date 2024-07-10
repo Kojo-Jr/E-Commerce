@@ -4,43 +4,40 @@ import { FlashList } from "@shopify/flash-list";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { featuredProducts } from "../../../mockData/featuredproducts.data";
+import { useNavigation } from "@react-navigation/native";
 
-const FeaturedCard = () => {
+const FeaturedCard = ({ featuredImage, name, price, description }) => {
+  const navigation = useNavigation();
   return (
     <View style={Styles.featuredContainer}>
-      <View style={Styles.featuredHeader}>
-        <Text style={Styles.featuredHeaderText} className="tracking-wider">
-          Featured
-        </Text>
-        <Text>See all</Text>
-      </View>
-      <FlashList
-        data={featuredProducts}
-        renderItem={({ item }) => (
-          <View style={Styles.featuredContent}>
-            <TouchableOpacity
-              style={Styles.featuredImageContainer}
-              className="bg-blue-200"
-            >
-              <Image style={Styles.featuredImage} source={item.image} />
-            </TouchableOpacity>
-            <View style={Styles.featuredInfo}>
-              <Text style={Styles.featuredName}>{item.name}</Text>
-              <View style={Styles.featuredPriceContainer}>
-                <Text>{item.price}</Text>
-                <MaterialIcons
-                  name="favorite-outline"
-                  size={24}
-                  color="black"
-                />
-              </View>
-            </View>
+      <View style={Styles.featuredContent}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("ViewProductsScreen", {
+              params: {
+                featuredImage,
+                name,
+                price,
+                description
+              }
+            })
+          }
+          style={Styles.featuredImageContainer}
+          className="bg-blue-200"
+        >
+          <Image style={Styles.featuredImage} source={featuredImage} />
+        </TouchableOpacity>
+        <View style={Styles.featuredInfo}>
+          <Text style={Styles.featuredName}>{name}</Text>
+          <View style={Styles.featuredPriceContainer}>
+            <Text>{price}</Text>
+            <MaterialIcons name="favorite-outline" size={24} color="black" />
           </View>
-        )}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        estimatedItemSize={200}
-      />
+          <View className="hidden">
+            <Text>{description}</Text>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -49,7 +46,7 @@ export default FeaturedCard;
 
 const Styles = StyleSheet.create({
   featuredContainer: {
-    marginTop: wp(10)
+    marginTop: wp(1)
   },
   featuredHeader: {
     flexDirection: "row",

@@ -1,51 +1,49 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
-import { productsData } from "../../../mockData/products.data";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
-import { FlashList } from "@shopify/flash-list";
+import { useNavigation } from "@react-navigation/native";
 
-const ProductCard = () => {
+const ProductCard = ({ featuredImage, name, description, price }) => {
+  const navigation = useNavigation();
   return (
     <View style={Styles.productsContainer}>
-      <View style={Styles.productsHeader}>
-        <Text style={Styles.productsHeaderText} className="tracking-wider">
-          Products
-        </Text>
-        <Text>See all</Text>
-      </View>
-      <FlashList
-        data={productsData}
-        renderItem={({ item }) => (
-          <View
-            style={Styles.productsItemContainer}
-            className="rounded-3xl flex flex-row"
-          >
-            <TouchableOpacity
-              style={Styles.productsImageContainer}
-              className="bg-orange-200 rounded-tl-3xl rounded-bl-3xl"
+      <View
+        style={Styles.productsItemContainer}
+        className="rounded-3xl flex flex-row"
+      >
+        <TouchableOpacity
+          style={Styles.productsImageContainer}
+          className="bg-orange-200 rounded-tl-3xl rounded-bl-3xl"
+          onPress={() =>
+            navigation.navigate("ViewProductsScreen", {
+              params: {
+                featuredImage,
+                name,
+                description,
+                price
+              }
+            })
+          }
+        >
+          <Image style={Styles.productsImage} source={featuredImage} />
+        </TouchableOpacity>
+        <View style={Styles.productsDetails} className="flex-row">
+          <View className="gap-1">
+            <Text className="text-lg font-medium">{name}</Text>
+            <Text
+              style={Styles.productsDescription}
+              className="text-xs text-justify"
             >
-              <Image style={Styles.productsImage} source={item.image} />
-            </TouchableOpacity>
-            <View style={Styles.productsDetails} className="flex-row">
-              <View className="gap-1">
-                <Text className="text-lg font-medium">{item.name}</Text>
-                <Text
-                  style={Styles.productsDescription}
-                  className="text-xs text-justify"
-                >
-                  {item.description}
-                </Text>
-                <Text className="font-bold">{item.price}</Text>
-              </View>
-              <View>
-                <AntDesign name="hearto" size={24} color="black" />
-              </View>
-            </View>
+              {description}
+            </Text>
+            <Text className="font-bold">{price}</Text>
           </View>
-        )}
-        estimatedItemSize={200}
-      />
+          <View>
+            <AntDesign name="hearto" size={24} color="black" />
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
@@ -54,13 +52,8 @@ export default ProductCard;
 
 const Styles = StyleSheet.create({
   productsContainer: {
-    flex: 1,
-    marginTop: wp(15)
-  },
-  productsHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    flex: 1
+    // marginTop: wp(1)
   },
   productsHeaderText: {
     fontSize: wp(5),

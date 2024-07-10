@@ -8,6 +8,9 @@ import {
   FeaturedCard,
   ProductCard
 } from "../../../components/Cards";
+import { featuredProducts } from "../../../../mockData/featuredproducts.data";
+import { MiniHeader } from "../../../components/Headers";
+import { productsData } from "../../../../mockData/products.data";
 
 const MainScreen = () => {
   return (
@@ -22,11 +25,45 @@ const MainScreen = () => {
               {/* Banner Card */}
               <BannerCard />
 
+              {/* Mini Header */}
+              <MiniHeader title="Featured" navigationText="See all" />
+
               {/* Featured Card */}
-              <FeaturedCard />
+              <FlashList
+                data={featuredProducts}
+                renderItem={({ item }) => (
+                  <FeaturedCard
+                    featuredImage={item.image}
+                    name={item.name}
+                    price={item.price}
+                    description={item.description}
+                  />
+                )}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                estimatedItemSize={40}
+              />
+
+              {/* Mini Header */}
+              <MiniHeader title="Products" navigationText="See all" />
 
               {/* Product Card */}
-              <ProductCard />
+              <View style={{ flexGrow: 1, flexDirection: "row" }}>
+                <FlashList
+                  data={productsData}
+                  renderItem={({ item }) => (
+                    <ProductCard
+                      featuredImage={item.image}
+                      name={item.name}
+                      description={item.description}
+                      price={item.price}
+                    />
+                  )}
+                  horizontal={false}
+                  showsHorizontalScrollIndicator={false}
+                  estimatedItemSize={40}
+                />
+              </View>
             </View>
           );
         }}

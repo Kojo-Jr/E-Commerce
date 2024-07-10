@@ -13,12 +13,12 @@ const ProtectedStackNavigator = () => {
         component={HomeStackNavigator}
         options={{ headerShown: false }}
       />
-      {/* 
-        <ProtectedStack.Screen
-          name="Categories"
-          component={CategoriesStackNavigator}
-          options={{ headerShown: false }}
-        /> */}
+
+      <ProtectedStack.Screen
+        name="Categories"
+        component={CategoriesStackNavigator}
+        options={{ headerShown: false }}
+      />
     </ProtectedStack.Navigator>
   );
 };
