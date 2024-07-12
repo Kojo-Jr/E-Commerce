@@ -58,7 +58,7 @@ const SignUp = () => {
 
       {/* Form */}
 
-      <View className="p-5 space-y-3">
+      <View className="p-5 space-y-2">
         {/* Email */}
         <View className="space-y-2">
           <Text className="font-medium">Email</Text>
@@ -69,6 +69,7 @@ const SignUp = () => {
             }}
             className="bg-[#FAFAFA] w-48 rounded-md"
             placeholder="example@gmail.com"
+            keyboardType="email-address"
           />
         </View>
 

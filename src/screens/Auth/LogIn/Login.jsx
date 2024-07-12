@@ -91,12 +91,15 @@ const Login = () => {
 
       {/* Forgot Password */}
       <View className="self-center mt-3">
-        <Text className="font-normal">Forgot Password</Text>
+        <Text className="font-normal">Forgot Password?</Text>
       </View>
 
       {/* Recovery Message */}
 
-      <View className="self-center flex-row space-x-2 mt-28">
+      <View
+        style={{ marginTop: wp(10) }}
+        className="self-center flex-row space-x-2"
+      >
         <View>
           <Text>Don't have an account?</Text>
         </View>
