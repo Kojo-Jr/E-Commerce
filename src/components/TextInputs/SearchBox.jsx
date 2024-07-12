@@ -6,12 +6,15 @@ import { AntDesign } from "@expo/vector-icons";
 const SearchBox = () => {
   return (
     <View style={Styles.searchBar}>
-      <TextInput
-        placeholder="Search..."
-        autoCapitalize={true}
-        keyboardType="default"
-        style={Styles.textInput}
-      />
+      <View>
+        <TextInput
+          placeholder="Search..."
+          autoCapitalize={true}
+          keyboardType="default"
+          style={Styles.textInput}
+        />
+      </View>
+
       <View style={Styles.cartContainer}>
         <AntDesign name="shoppingcart" size={24} color="black" />
         <View style={Styles.cartBadge}>
@@ -27,8 +30,10 @@ const Styles = StyleSheet.create({
   searchBar: {
     marginTop: wp(5),
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
+    // justifyContent: "space-between",
+    alignItems: "center",
+    alignSelf: "center",
+    gap: wp(5)
   },
   textInput: {
     borderWidth: 1,

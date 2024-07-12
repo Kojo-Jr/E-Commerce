@@ -1,1 +1,1 @@
-# E-Commerce Mobile App
+# E-Shop Mobile App

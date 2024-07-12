@@ -6,19 +6,23 @@ import AuthStackNavigator from "./Authentication/AuthStackNavigator";
 
 const Stack = createStackNavigator();
 const RootNavigation = () => {
+  const user = true;
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="ProtectedStack"
-          component={ProtectedStackNavigator}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="AuthStack"
-          component={AuthStackNavigator}
-          options={{ headerShown: false }}
-        />
+        {user ? (
+          <Stack.Screen
+            name="ProtectedStack"
+            component={ProtectedStackNavigator}
+            options={{ headerShown: false }}
+          />
+        ) : (
+          <Stack.Screen
+            name="AuthStack"
+            component={AuthStackNavigator}
+            options={{ headerShown: false }}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

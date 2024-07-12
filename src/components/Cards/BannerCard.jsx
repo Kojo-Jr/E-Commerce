@@ -22,7 +22,8 @@ export default BannerCard;
 
 const Styles = StyleSheet.create({
   bannerContainer: {
-    marginTop: wp(5)
+    marginTop: wp(5),
+    alignItems: "center"
   },
   imageStyle: {
     height: wp(35),

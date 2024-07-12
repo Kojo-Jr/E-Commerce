@@ -11,10 +11,12 @@ import {
 import { featuredProducts } from "../../../../mockData/featuredproducts.data";
 import { MiniHeader } from "../../../components/Headers";
 import { productsData } from "../../../../mockData/products.data";
+import { StatusBar } from "expo-status-bar";
 
 const MainScreen = () => {
   return (
     <View style={Styles.mainScreenContainer}>
+      <StatusBar style="auto" />
       <FlashList
         ListHeaderComponent={() => {
           return (
@@ -34,6 +36,7 @@ const MainScreen = () => {
                 renderItem={({ item }) => (
                   <FeaturedCard
                     featuredImage={item.image}
+                    category={item.category}
                     name={item.name}
                     price={item.price}
                     description={item.description}
@@ -54,6 +57,7 @@ const MainScreen = () => {
                   renderItem={({ item }) => (
                     <ProductCard
                       featuredImage={item.image}
+                      category={item.category}
                       name={item.name}
                       description={item.description}
                       price={item.price}
@@ -80,7 +84,7 @@ const Styles = StyleSheet.create({
   mainScreenContainer: {
     flex: 1,
     marginTop: wp(5),
-    padding: wp(5),
+    padding: wp(1.5),
     backgroundColor: "#fafafa"
   }
 });

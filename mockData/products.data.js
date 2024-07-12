@@ -2,6 +2,7 @@ export const productsData = [
   {
     id: 0,
     image: require("../assets/mock_images/products/All products/nike_airmax_90.png"),
+    category: "Footwear",
     name: "Nike Airmax 90",
     description:
       "Experience the ultimate in innovation and comfort with Nike footwear - just do it.",
@@ -10,6 +11,7 @@ export const productsData = [
   {
     id: 1,
     image: require("../assets/mock_images/products/All products/birkenstock.png"),
+    category: "Footwear",
     name: "Birkenstock",
     description:
       "Discover unmatched comfort and timeless style with Birkenstock footwear - where tradition meets innovation.",
@@ -18,6 +20,7 @@ export const productsData = [
   {
     id: 2,
     image: require("../assets/mock_images/products/All products/currenwatch.png"),
+    category: "Accessories",
     name: "Curren Watch",
     description:
       "Elevate your look with Curren watches - timeless elegance and precision craftsmanship.",
@@ -26,6 +29,7 @@ export const productsData = [
   {
     id: 3,
     image: require("../assets/mock_images/products/All products/furo slips.png"),
+    category: "Footwear",
     name: "Furo Slips",
     description:
       "Embrace fun and comfort with Crocs footwear - your go-to for versatile and playful style.",
@@ -34,6 +38,7 @@ export const productsData = [
   {
     id: 4,
     image: require("../assets/mock_images/products/All products/headset.png"),
+    category: "Electronics",
     name: "Headset",
     description:
       "Immerse yourself in exceptional sound with our premium headsets - clarity and comfort for every moment.",
@@ -42,6 +47,7 @@ export const productsData = [
   {
     id: 5,
     image: require("../assets/mock_images/products/All products/microPhone.png"),
+    category: "Electronics",
     name: "Microphone",
     description:
       "Capture every detail with crystal-clear precision using our high-quality microphones - your voice, amplified.",

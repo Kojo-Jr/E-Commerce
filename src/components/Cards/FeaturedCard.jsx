@@ -1,12 +1,18 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
-import { FlashList } from "@shopify/flash-list";
+
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
-import { featuredProducts } from "../../../mockData/featuredproducts.data";
+
 import { useNavigation } from "@react-navigation/native";
 
-const FeaturedCard = ({ featuredImage, name, price, description }) => {
+const FeaturedCard = ({
+  featuredImage,
+  category,
+  name,
+  price,
+  description
+}) => {
   const navigation = useNavigation();
   return (
     <View style={Styles.featuredContainer}>
@@ -16,6 +22,7 @@ const FeaturedCard = ({ featuredImage, name, price, description }) => {
             navigation.navigate("ViewProductsScreen", {
               params: {
                 featuredImage,
+                category,
                 name,
                 price,
                 description
@@ -28,6 +35,7 @@ const FeaturedCard = ({ featuredImage, name, price, description }) => {
           <Image style={Styles.featuredImage} source={featuredImage} />
         </TouchableOpacity>
         <View style={Styles.featuredInfo}>
+          <Text className="hidden">{category}</Text>
           <Text style={Styles.featuredName}>{name}</Text>
           <View style={Styles.featuredPriceContainer}>
             <Text>{price}</Text>

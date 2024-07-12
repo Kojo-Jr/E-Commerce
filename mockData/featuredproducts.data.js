@@ -2,16 +2,18 @@ export const featuredProducts = [
   {
     id: 0,
     image: require("../assets/mock_images/products/featuredproducts/fuijicamera.png"),
+    category: "Electronics",
     name: "Fuji Camera",
-    price: "GHS 300.00",
+    price: "$80.00",
     description:
       "Capture life's moments in stunning detail with Fuji cameras - where innovation meets artistry."
   },
   {
     id: 1,
     image: require("../assets/mock_images/products/featuredproducts/laptopstand.png"),
+    category: "Electronics",
     name: "Laptop Stand",
-    price: "GhS 100.00",
+    price: "$20.00",
     description:
       "Enhance your workspace ergonomics with our sleek and sturdy laptop stands - comfort and productivity elevated."
   },
@@ -19,7 +21,8 @@ export const featuredProducts = [
     id: 2,
     image: require("../assets/mock_images/products/featuredproducts/samsungearbud.png"),
     name: "Samsung Ear bud",
-    price: "GHS 800.00",
+    category: "Electronics",
+    price: "$100.00",
     description:
       "Experience superior sound and seamless connectivity with Samsung earbuds - your perfect audio companion."
   },
@@ -27,7 +30,8 @@ export const featuredProducts = [
     id: 3,
     image: require("../assets/mock_images/products/featuredproducts/wirelessheadset.png"),
     name: "Wireless Headsets",
-    price: "GHS 290.00",
+    category: "Electronics",
+    price: "$40.00",
     description:
       "Enjoy ultimate freedom and crystal-clear audio with our wireless headsets - sound without limits."
   },
@@ -35,7 +39,8 @@ export const featuredProducts = [
     id: 4,
     image: require("../assets/mock_images/products/featuredproducts/wirelessmouse.png"),
     name: "Wireless Mouse",
-    price: "GHS 200.00",
+    category: "Electronics",
+    price: "$10.00",
     description:
       "Experience precision and convenience with our wireless mouse - effortless control at your fingertips."
   }

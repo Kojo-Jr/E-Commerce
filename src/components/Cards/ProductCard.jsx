@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const ProductCard = ({ featuredImage, name, description, price }) => {
+const ProductCard = ({ featuredImage, category, name, description, price }) => {
   const navigation = useNavigation();
   return (
     <View style={Styles.productsContainer}>
@@ -19,6 +19,7 @@ const ProductCard = ({ featuredImage, name, description, price }) => {
             navigation.navigate("ViewProductsScreen", {
               params: {
                 featuredImage,
+                category,
                 name,
                 description,
                 price
@@ -38,6 +39,7 @@ const ProductCard = ({ featuredImage, name, description, price }) => {
               {description}
             </Text>
             <Text className="font-bold">{price}</Text>
+            <Text className="hidden">{category}</Text>
           </View>
           <View>
             <AntDesign name="hearto" size={24} color="black" />
@@ -52,8 +54,9 @@ export default ProductCard;
 
 const Styles = StyleSheet.create({
   productsContainer: {
-    flex: 1
+    flex: 1,
     // marginTop: wp(1)
+    alignSelf: "center"
   },
   productsHeaderText: {
     fontSize: wp(5),

@@ -15,7 +15,7 @@ const ProtectedStackNavigator = () => {
       />
 
       <ProtectedStack.Screen
-        name="Categories"
+        name="CategoryStack"
         component={CategoriesStackNavigator}
         options={{ headerShown: false }}
       />

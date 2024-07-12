@@ -4,11 +4,17 @@ import { StatusBar } from "expo-status-bar";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { NavigationHeader } from "../../../components/Headers";
 
 const ViewProducts = ({ route }) => {
   const navigation = useNavigation();
 
-  const { featuredImage, name, price, description } = route.params.params;
+  const navigatetoHomeScreen = () => {
+    navigation.navigate("HomeScreen");
+  };
+
+  const { featuredImage, category, name, price, description } =
+    route.params.params;
   return (
     <View className="flex-1 bg-orange-200">
       <StatusBar style="auto" />
@@ -17,21 +23,15 @@ const ViewProducts = ({ route }) => {
       <View style={Styles.imageBanner}>
         <Image style={Styles.image} source={featuredImage} />
 
-        {/* Navigation and Bookmark */}
-        <View
-          style={{ gap: wp(30) }}
-          className="absolute top-14 flex-row self-center items-center"
-        >
-          <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
-            <AntDesign name="arrowleft" size={24} color="black" />
-          </TouchableOpacity>
-          <View>
-            <Text className="font-medium text-xl">E-Shop</Text>
-          </View>
-          <TouchableOpacity>
-            <AntDesign name="hearto" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
+        {/* Navigation Header*/}
+        <NavigationHeader
+          headerTitle="E-Shop"
+          IconComponent={AntDesign}
+          iconName="hearto"
+          iconSize={24}
+          iconColor="black"
+          handleNavigation={navigatetoHomeScreen}
+        />
       </View>
 
       {/* Product Details */}
@@ -39,7 +39,7 @@ const ViewProducts = ({ route }) => {
         <View className="mt-2 p-5 space-y-5">
           {/* Category */}
           <View>
-            <Text className="text-[#5C9DFF]">Music</Text>
+            <Text className="text-[#5C9DFF]">{category}</Text>
           </View>
           <View>
             <Text className="font-medium text-3xl">{name}</Text>
