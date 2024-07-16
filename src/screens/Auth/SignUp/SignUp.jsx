@@ -5,6 +5,7 @@ import { NavigationHeader } from "../../../components/Headers";
 import { useNavigation } from "@react-navigation/native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import CheckBox from "react-native-check-box";
+
 const SignUp = () => {
   const navigation = useNavigation();
 
@@ -14,7 +15,7 @@ const SignUp = () => {
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="auto" />
-      <View className="h-20">
+      <View style={{ height: wp("15%") }}>
         {/* Use the Navigation Header and pass in the props */}
         <NavigationHeader
           headerTitle="Sign Up"
