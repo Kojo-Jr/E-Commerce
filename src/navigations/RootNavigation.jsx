@@ -6,7 +6,7 @@ import AuthStackNavigator from "./Authentication/AuthStackNavigator";
 
 const Stack = createStackNavigator();
 const RootNavigation = () => {
-  const user = false;
+  const user = true;
   return (
     <NavigationContainer>
       <Stack.Navigator>

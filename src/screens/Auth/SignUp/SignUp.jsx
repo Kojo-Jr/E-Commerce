@@ -1,5 +1,12 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Alert
+} from "react-native";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationHeader } from "../../../components/Headers";
 import { useNavigation } from "@react-navigation/native";
@@ -12,10 +19,80 @@ const SignUp = () => {
   const navigatetoSplashSCreen = () => {
     navigation.navigate("SplashScreen");
   };
+
+  // const handleNavigation = () => {
+  //   navigation.navigate("Login");
+  // };
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [setUser] = useState(false);
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+  };
+
+  const handleUsernameChange = (text) => {
+    setUsername(text);
+  };
+
+  const handlePasswordChange = (text) => {
+    setPassword(text);
+  };
+
+  const handleConfirmPasswordChange = (text) => {
+    setConfirmPassword(text);
+  };
+
+  const renderConfirmPassword = () => {
+    if (password.length > 5) {
+      return (
+        <View className="space-y-2">
+          <Text className="font-medium">Confirm Password</Text>
+          <TextInput
+            style={{
+              width: wp(90),
+              padding: wp(2.5)
+            }}
+            className="bg-[#FAFAFA] w-48 rounded-md"
+            secureTextEntry={true}
+            placeholder="Confirm password"
+            onChangeText={handleConfirmPasswordChange}
+            value={confirmPassword}
+          />
+        </View>
+      );
+    }
+  };
+  const handleSignUp = () => {
+    if (
+      email === "" ||
+      username === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      Alert.alert("Error", "Please fill in all the fields");
+    } else if (password !== confirmPassword) {
+      Alert.alert("Error", "Passwords do not match");
+    } else {
+      Alert.alert("Success", "Account Created Successfully");
+
+      // const signIn = () => {
+      //   setUser(true);
+      // };
+      // signIn();
+      // navigation.navigate("ProtectedStack", { screen: "HomeScreen" });
+    }
+  };
+
+  // End of Hooks
+
   return (
     <View className="flex-1 bg-white">
       <StatusBar style="auto" />
-      <View style={{ height: wp("15%") }}>
+      <View style={{ height: wp("10%") }}>
         {/* Use the Navigation Header and pass in the props */}
         <NavigationHeader
           headerTitle="Sign Up"
@@ -69,6 +146,8 @@ const SignUp = () => {
               padding: wp(2.5)
             }}
             className="bg-[#FAFAFA] w-48 rounded-md"
+            value={email}
+            onChangeText={handleEmailChange}
             placeholder="example@gmail.com"
             keyboardType="email-address"
           />
@@ -83,6 +162,8 @@ const SignUp = () => {
               padding: wp(2.5)
             }}
             className="bg-[#FAFAFA] w-48 rounded-md"
+            value={username}
+            onChangeText={handleUsernameChange}
             placeholder="John Smith"
           />
         </View>
@@ -96,9 +177,16 @@ const SignUp = () => {
               padding: wp(2.5)
             }}
             className="bg-[#FAFAFA] w-48 rounded-md"
+            value={password}
+            onChangeText={handlePasswordChange}
+            secureTextEntry={true}
             placeholder="Password"
           />
         </View>
+
+        {/* Confirm Password */}
+
+        {renderConfirmPassword()}
 
         {/* CheckBox */}
         <View className="flex-row items-center top-5 ">
@@ -108,7 +196,10 @@ const SignUp = () => {
 
         {/* Sign Up Button */}
         <View className="top-10 self-center">
-          <TouchableOpacity className="bg-[#F96C05] items-center p-3 w-80 rounded-md">
+          <TouchableOpacity
+            className="bg-[#F96C05] items-center p-3 w-80 rounded-md"
+            onPress={handleSignUp}
+          >
             <Text className="text-[#FFFFFF] text-base">Sign Up</Text>
           </TouchableOpacity>
         </View>
