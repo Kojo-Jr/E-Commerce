@@ -1,62 +1,46 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
   Image,
   TouchableOpacity,
   TextInput,
-  Alert
+  Alert,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet
 } from "react-native";
-import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationHeader } from "../../../components/Headers";
-import { useNavigation } from "@react-navigation/native";
-import { widthPercentageToDP as wp } from "react-native-responsive-screen";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp
+} from "react-native-responsive-screen";
 import CheckBox from "react-native-check-box";
+import { useAuth } from "../../../context/AuthContext/AuthContext";
+import LocalLoading from "../../../components/LoadingIndicator/LocalLoading";
 
 const SignUp = () => {
-  const navigation = useNavigation();
-
-  const navigatetoSplashSCreen = () => {
-    navigation.navigate("SplashScreen");
-  };
-
-  // const handleNavigation = () => {
-  //   navigation.navigate("Login");
-  // };
-
+  const { signIn } = useAuth();
+  const [localLoading, setLocalLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [setUser] = useState(false);
 
-  const handleEmailChange = (text) => {
-    setEmail(text);
-  };
-
-  const handleUsernameChange = (text) => {
-    setUsername(text);
-  };
-
-  const handlePasswordChange = (text) => {
-    setPassword(text);
-  };
-
-  const handleConfirmPasswordChange = (text) => {
-    setConfirmPassword(text);
-  };
+  const handleEmailChange = (text) => setEmail(text);
+  const handleUsernameChange = (text) => setUsername(text);
+  const handlePasswordChange = (text) => setPassword(text);
+  const handleConfirmPasswordChange = (text) => setConfirmPassword(text);
 
   const renderConfirmPassword = () => {
     if (password.length > 5) {
       return (
-        <View className="space-y-2">
-          <Text className="font-medium">Confirm Password</Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Confirm Password</Text>
           <TextInput
-            style={{
-              width: wp(90),
-              padding: wp(2.5)
-            }}
-            className="bg-[#FAFAFA] w-48 rounded-md"
+            style={styles.input}
             secureTextEntry={true}
             placeholder="Confirm password"
             onChangeText={handleConfirmPasswordChange}
@@ -66,7 +50,8 @@ const SignUp = () => {
       );
     }
   };
-  const handleSignUp = () => {
+
+  const handleSignUp = async () => {
     if (
       email === "" ||
       username === "" ||
@@ -77,135 +62,195 @@ const SignUp = () => {
     } else if (password !== confirmPassword) {
       Alert.alert("Error", "Passwords do not match");
     } else {
-      Alert.alert("Success", "Account Created Successfully");
-
-      // const signIn = () => {
-      //   setUser(true);
-      // };
-      // signIn();
-      // navigation.navigate("ProtectedStack", { screen: "HomeScreen" });
+      setLocalLoading(true);
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        Alert.alert("Success", "Account created successfully");
+        signIn();
+      } catch (error) {
+        Alert.alert("Error", "Failed to create an account");
+      } finally {
+        setLocalLoading(false);
+      }
     }
   };
 
-  // End of Hooks
+  if (localLoading) {
+    return <LocalLoading />;
+  }
 
   return (
-    <View className="flex-1 bg-white">
-      <StatusBar style="auto" />
-      <View style={{ height: wp("10%") }}>
-        {/* Use the Navigation Header and pass in the props */}
-        <NavigationHeader
-          headerTitle="Sign Up"
-          handleNavigation={navigatetoSplashSCreen}
-        />
-      </View>
-
-      {/* Logo and App Name */}
-      <View className="self-center items-center mt-10">
-        <TouchableOpacity>
-          <Image
-            source={require("../../../../assets/mock_images/EShop-Logo/E_Shop _Logo_Icon.png")}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Image
-            source={require("../../../../assets/mock_images/EShop-Logo/Logo-Text.png")}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* Buttons: Google and Facebook */}
-
-      <View className="self-center flex-row mt-12 space-x-7">
-        <TouchableOpacity className="bg-[#E1422F] w-44 h-12 flex-row items-center justify-center space-x-2 p-2 rounded-md">
-          <Image
-            source={require("../../../../assets/mock_images/Logos/GoogleLogo.png")}
-          />
-          <Text className="text-white text-base">Google</Text>
-        </TouchableOpacity>
-        <TouchableOpacity className="bg-[#2C65D8] w-44 h-12 flex-row items-center justify-center space-x-2 p-2 rounded-md">
-          <Image
-            source={require("../../../../assets/mock_images/Logos/FacebookLogo.png")}
-          />
-          <Text className="text-white text-base">FaceBook</Text>
-        </TouchableOpacity>
-      </View>
-      <View className="self-center mt-5">
-        <Text>Or</Text>
-      </View>
-
-      {/* Form */}
-
-      <View className="p-5 space-y-2">
-        {/* Email */}
-        <View className="space-y-2">
-          <Text className="font-medium">Email</Text>
-          <TextInput
-            style={{
-              width: wp(90),
-              padding: wp(2.5)
-            }}
-            className="bg-[#FAFAFA] w-48 rounded-md"
-            value={email}
-            onChangeText={handleEmailChange}
-            placeholder="example@gmail.com"
-            keyboardType="email-address"
-          />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <StatusBar style="auto" />
+        <View style={styles.header}>
+          <NavigationHeader headerTitle="Sign Up" />
         </View>
 
-        {/* Username */}
-        <View className="space-y-2">
-          <Text className="font-medium">Username</Text>
-          <TextInput
-            style={{
-              width: wp(90),
-              padding: wp(2.5)
-            }}
-            className="bg-[#FAFAFA] w-48 rounded-md"
-            value={username}
-            onChangeText={handleUsernameChange}
-            placeholder="John Smith"
-          />
-        </View>
-
-        {/* Password */}
-        <View className="space-y-2">
-          <Text className="font-medium">Password</Text>
-          <TextInput
-            style={{
-              width: wp(90),
-              padding: wp(2.5)
-            }}
-            className="bg-[#FAFAFA] w-48 rounded-md"
-            value={password}
-            onChangeText={handlePasswordChange}
-            secureTextEntry={true}
-            placeholder="Password"
-          />
-        </View>
-
-        {/* Confirm Password */}
-
-        {renderConfirmPassword()}
-
-        {/* CheckBox */}
-        <View className="flex-row items-center top-5 ">
-          <CheckBox onClick={() => {}} />
-          <Text>Terms and Conditions</Text>
-        </View>
-
-        {/* Sign Up Button */}
-        <View className="top-10 self-center">
-          <TouchableOpacity
-            className="bg-[#F96C05] items-center p-3 w-80 rounded-md"
-            onPress={handleSignUp}
-          >
-            <Text className="text-[#FFFFFF] text-base">Sign Up</Text>
+        <View style={styles.logoContainer}>
+          <TouchableOpacity>
+            <Image
+              source={require("../../../../assets/mock_images/EShop-Logo/E_Shop _Logo_Icon.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Image
+              source={require("../../../../assets/mock_images/EShop-Logo/Logo-Text.png")}
+            />
           </TouchableOpacity>
         </View>
-      </View>
-    </View>
+
+        <View style={styles.socialButtonsContainer}>
+          <TouchableOpacity style={[styles.socialButton, styles.googleButton]}>
+            <Image
+              source={require("../../../../assets/mock_images/Logos/GoogleLogo.png")}
+            />
+            <Text style={styles.socialButtonText}>Google</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.socialButton, styles.facebookButton]}
+          >
+            <Image
+              source={require("../../../../assets/mock_images/Logos/FacebookLogo.png")}
+            />
+            <Text style={styles.socialButtonText}>Facebook</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.orText}>Or</Text>
+
+        <View style={styles.formContainer}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Email</Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={handleEmailChange}
+              placeholder="example@gmail.com"
+              keyboardType="email-address"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Username</Text>
+            <TextInput
+              style={styles.input}
+              value={username}
+              onChangeText={handleUsernameChange}
+              placeholder="John Smith"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Password</Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={handlePasswordChange}
+              secureTextEntry={true}
+              placeholder="Password"
+            />
+          </View>
+
+          {renderConfirmPassword()}
+
+          <View style={styles.checkboxContainer}>
+            <CheckBox onClick={() => {}} />
+            <Text style={styles.checkboxText}>Terms and Conditions</Text>
+          </View>
+
+          <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
+            <Text style={styles.signUpButtonText}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "white"
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: hp("5%")
+  },
+  header: {
+    height: hp("8%")
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginTop: hp("5%")
+  },
+  socialButtonsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: hp("5%")
+  },
+  socialButton: {
+    width: wp("40%"),
+    height: hp("6%"),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: wp("2%"),
+    marginHorizontal: wp("2%")
+  },
+  googleButton: {
+    backgroundColor: "#E1422F"
+  },
+  facebookButton: {
+    backgroundColor: "#2C65D8"
+  },
+  socialButtonText: {
+    color: "white",
+    fontSize: wp("3.5%"),
+    marginLeft: wp("2%")
+  },
+  orText: {
+    alignSelf: "center",
+    marginVertical: hp("2%")
+  },
+  formContainer: {
+    paddingHorizontal: wp("5%")
+  },
+  inputContainer: {
+    marginBottom: hp("2%")
+  },
+  inputLabel: {
+    fontWeight: "500",
+    marginBottom: hp("1%")
+  },
+  input: {
+    width: "100%",
+    backgroundColor: "#FAFAFA",
+    borderRadius: wp("2%"),
+    padding: wp("3%")
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: hp("2%")
+  },
+  checkboxText: {
+    marginLeft: wp("2%")
+  },
+  signUpButton: {
+    backgroundColor: "#F96C05",
+    alignItems: "center",
+    padding: hp("1.5%"),
+    borderRadius: wp("2%"),
+    marginTop: hp("4%")
+  },
+  signUpButtonText: {
+    color: "white",
+    fontSize: wp("4%")
+  }
+});
 
 export default SignUp;

@@ -7,7 +7,7 @@ import Login from "../../screens/Auth/LogIn/Login";
 const AuthStack = createStackNavigator();
 const AuthStackNavigator = () => {
   return (
-    <AuthStack.Navigator initialRouteName="SignUp">
+    <AuthStack.Navigator initialRouteName="SplashScreen">
       <AuthStack.Screen
         name="SplashScreen"
         component={SplashScreen}
