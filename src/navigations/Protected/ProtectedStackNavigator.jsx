@@ -1,16 +1,15 @@
 import React from "react";
-
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeStackNavigator from "./HomeStack/HomeStackNavigator";
 import CategoriesStackNavigator from "./CategoriesStack/CategoriesStackNavigator";
+import TabNavigation from "../TabNavigation/TabNavigation";
 
 const ProtectedStack = createStackNavigator();
 const ProtectedStackNavigator = () => {
   return (
-    <ProtectedStack.Navigator initialRouteName="HomeStack">
+    <ProtectedStack.Navigator initialRouteName="TabNavigation">
       <ProtectedStack.Screen
-        name="HomeStack"
-        component={HomeStackNavigator}
+        name="TabNavigation"
+        component={TabNavigation}
         options={{ headerShown: false }}
       />
 
