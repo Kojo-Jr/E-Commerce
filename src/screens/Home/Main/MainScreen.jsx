@@ -12,8 +12,13 @@ import { featuredProducts } from "../../../../mockData/featuredproducts.data";
 import { MiniHeader } from "../../../components/Headers";
 import { productsData } from "../../../../mockData/products.data";
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 
 const MainScreen = () => {
+  const navigation = useNavigation();
+  const seeAllProducts = () => {
+    navigation.navigate("SeeAllProductsScreen");
+  };
   return (
     <View style={Styles.mainScreenContainer}>
       <StatusBar style="auto" />
@@ -28,7 +33,11 @@ const MainScreen = () => {
               <BannerCard />
 
               {/* Mini Header */}
-              <MiniHeader title="Featured" navigationText="See all" />
+              <MiniHeader
+                title="Featured"
+                navigationText="See all"
+                handleNavigation={seeAllProducts}
+              />
 
               {/* Featured Card */}
               <FlashList
@@ -48,7 +57,11 @@ const MainScreen = () => {
               />
 
               {/* Mini Header */}
-              <MiniHeader title="Products" navigationText="See all" />
+              <MiniHeader
+                title="Products"
+                navigationText="See all"
+                handleNavigation={seeAllProducts}
+              />
 
               {/* Product Card */}
               <View style={{ flexGrow: 1, flexDirection: "row" }}>

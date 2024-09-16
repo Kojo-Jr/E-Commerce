@@ -1,14 +1,16 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
-const MiniHeader = ({ title, navigationText }) => {
+const MiniHeader = ({ title, navigationText, handleNavigation }) => {
   return (
     <View style={Styles.featuredHeader}>
       <Text style={Styles.featuredHeaderText} className="tracking-wider">
         {title}
       </Text>
-      <Text>{navigationText}</Text>
+      <Pressable onPress={handleNavigation}>
+        <Text>{navigationText}</Text>
+      </Pressable>
     </View>
   );
 };
