@@ -62,7 +62,7 @@ const Styles = StyleSheet.create({
     width: wp(45),
     borderWidth: 1,
     borderColor: "white",
-    marginTop: wp(0.5),
+    // marginTop: wp(),
     marginRight: wp(2),
     borderRadius: wp(5),
     shadowColor: "#000",
