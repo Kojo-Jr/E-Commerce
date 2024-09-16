@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 
 const SearchBox = () => {
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(false);
   return (
     <View style={Styles.searchBar}>
       <View>
