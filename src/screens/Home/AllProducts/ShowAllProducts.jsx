@@ -1,19 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, ImageBackground, StyleSheet } from "react-native";
 import React from "react";
-import { NavigationHeader } from "../../../components/Headers";
-import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 
 const ShowAllProducts = () => {
-  const navigation = useNavigation();
-  const navigateToHomeScreen = () => {
-    navigation.navigate("HomeScreen");
-  };
   return (
     <View style={styles.container}>
-      <NavigationHeader
-        headerTitle="All Products"
-        handleNavigation={navigateToHomeScreen}
-      />
+      <StatusBar style="auto" />
     </View>
   );
 };
@@ -22,6 +14,7 @@ export default ShowAllProducts;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "#fafafa"
   }
 });
