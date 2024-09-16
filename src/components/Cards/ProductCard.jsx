@@ -6,7 +6,7 @@ import {
   StyleSheet,
   useWindowDimensions
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
@@ -19,6 +19,11 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
   const { width, height } = useWindowDimensions();
   const isPortrait = height > width; // Check orientation
 
+  const [isFavourite, setIsFavourite] = useState(false); //State for favourite
+
+  const toggleFavourite = () => {
+    setIsFavourite(!isFavourite); //Toggle favourite
+  };
   return (
     <View
       style={[
@@ -49,8 +54,12 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
             <Text style={styles.productsDescription}>{description}</Text>
             <Text style={styles.productPrice}>{price}</Text>
           </View>
-          <TouchableOpacity>
-            <AntDesign name="hearto" size={24} color="black" />
+          <TouchableOpacity onPress={toggleFavourite}>
+            <AntDesign
+              name={isFavourite ? "heart" : "hearto"}
+              size={24}
+              color={isFavourite ? "red" : "black"}
+            />
           </TouchableOpacity>
         </View>
       </View>
