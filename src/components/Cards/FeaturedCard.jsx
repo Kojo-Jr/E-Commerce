@@ -1,8 +1,9 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const FeaturedCard = ({
   featuredImage,
@@ -13,11 +14,43 @@ const FeaturedCard = ({
 }) => {
   const navigation = useNavigation();
 
-  const [isFavourite, setIsFavourite] = useState(false); //State for favourite
+  const [isFavourite, setIsFavourite] = useState(false); // State for favourite
 
-  const toggleFavourite = () => {
-    setIsFavourite(!isFavourite); //Toggle favourite
+  // Unique key for this product's favourite status in AsyncStorage
+  const storageKey = `favourite-${name}`;
+
+  // Function to load the favourite state from AsyncStorage
+  const loadFavouriteStatus = async () => {
+    try {
+      const storedStatus = await AsyncStorage.getItem(storageKey);
+      if (storedStatus !== null) {
+        setIsFavourite(storedStatus === "true");
+      }
+    } catch (error) {
+      console.log("Error loading favourite status: ", error);
+    }
   };
+
+  // Save the favourite state to AsyncStorage
+  const saveFavouriteStatus = async (value) => {
+    try {
+      await AsyncStorage.setItem(storageKey, String(value));
+    } catch (error) {
+      console.log("Error saving favourite status: ", error);
+    }
+  };
+
+  // Toggle favourite status
+  const toggleFavourite = () => {
+    const newFavouriteStatus = !isFavourite; // Toggle favourite
+    setIsFavourite(newFavouriteStatus); // Update state
+    saveFavouriteStatus(newFavouriteStatus); // Persist the new state
+  };
+
+  // Load the favourite status when the component mounts
+  useEffect(() => {
+    loadFavouriteStatus();
+  }, []);
 
   return (
     <View style={Styles.featuredContainer}>
@@ -59,7 +92,7 @@ export default FeaturedCard;
 
 const Styles = StyleSheet.create({
   featuredContainer: {
-    marginTop: wp(1)
+    // marginTop: wp(1)
   },
   featuredHeader: {
     flexDirection: "row",
