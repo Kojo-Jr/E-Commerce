@@ -22,7 +22,7 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
 
   const [isFavourite, setIsFavourite] = useState(false);
 
-  const product = { featuredImage, category, name, description, price };
+  const product = { featuredImage, category, name, description, price }; // Add product to favourites
 
   const loadFavouriteStatus = async () => {
     try {
