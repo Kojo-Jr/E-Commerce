@@ -37,7 +37,7 @@ const MainScreen = () => {
       <FlashList
         ListHeaderComponent={() => {
           return (
-            <View>
+            <View style={Styles.listHeaderContainer}>
               {/* SearchBox */}
               <SearchBox />
 
@@ -111,5 +111,9 @@ const Styles = StyleSheet.create({
 
     padding: wp(1.5),
     backgroundColor: "#fafafa"
+  },
+  listHeaderContainer: {
+    flex: 1,
+    marginTop: wp(5)
   }
 });

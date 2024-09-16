@@ -22,7 +22,7 @@ const Styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: wp(6),
+    marginTop: wp(4),
     padding: wp(2)
   },
   featuredHeaderText: {
