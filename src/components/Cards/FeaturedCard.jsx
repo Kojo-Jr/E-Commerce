@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import React from "react";
+import { useState } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import { MaterialIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const FeaturedCard = ({
@@ -12,6 +12,12 @@ const FeaturedCard = ({
   description
 }) => {
   const navigation = useNavigation();
+
+  const [isFavourite, setIsFavourite] = useState(false); //State for favourite
+
+  const toggleFavourite = () => {
+    setIsFavourite(!isFavourite); //Toggle favourite
+  };
   return (
     <View style={Styles.featuredContainer}>
       <View style={Styles.featuredContent}>
@@ -31,7 +37,13 @@ const FeaturedCard = ({
           <Text style={Styles.featuredName}>{name}</Text>
           <View style={Styles.featuredPriceContainer}>
             <Text>{price}</Text>
-            <MaterialIcons name="favorite-outline" size={24} color="black" />
+            <TouchableOpacity onPress={toggleFavourite}>
+              <AntDesign
+                name={isFavourite ? "heart" : "hearto"}
+                size={24}
+                color={isFavourite ? "red" : "black"}
+              />
+            </TouchableOpacity>
           </View>
           <View className="hidden">
             <Text>{description}</Text>
