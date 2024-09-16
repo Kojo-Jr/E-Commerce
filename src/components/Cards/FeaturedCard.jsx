@@ -18,6 +18,7 @@ const FeaturedCard = ({
   const toggleFavourite = () => {
     setIsFavourite(!isFavourite); //Toggle favourite
   };
+
   return (
     <View style={Styles.featuredContainer}>
       <View style={Styles.featuredContent}>

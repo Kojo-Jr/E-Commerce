@@ -6,24 +6,58 @@ import {
   StyleSheet,
   useWindowDimensions
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp
 } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProductCard = ({ featuredImage, category, name, description, price }) => {
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
   const isPortrait = height > width; // Check orientation
 
-  const [isFavourite, setIsFavourite] = useState(false); //State for favourite
+  const [isFavourite, setIsFavourite] = useState(false); // State for favourite
 
-  const toggleFavourite = () => {
-    setIsFavourite(!isFavourite); //Toggle favourite
+  // Unique key for this product's favourite status in AsyncStorage
+  const storageKey = `favourite-${name}`;
+
+  // Function to load the favourite state from AsyncStorage
+  const loadFavouriteStatus = async () => {
+    try {
+      const storedStatus = await AsyncStorage.getItem(storageKey);
+      if (storedStatus !== null) {
+        setIsFavourite(storedStatus === "true");
+      }
+    } catch (error) {
+      console.log("Error loading favourite status: ", error);
+    }
   };
+
+  // Save the favourite state to AsyncStorage
+  const saveFavouriteStatus = async (value) => {
+    try {
+      await AsyncStorage.setItem(storageKey, String(value));
+    } catch (error) {
+      console.log("Error saving favourite status: ", error);
+    }
+  };
+
+  // Toggle favourite status
+  const toggleFavourite = () => {
+    const newFavouriteStatus = !isFavourite; // Toggle favourite
+    setIsFavourite(newFavouriteStatus); // Update state
+    saveFavouriteStatus(newFavouriteStatus); // Persist the new state
+  };
+
+  // Load the favourite status when the component mounts
+  useEffect(() => {
+    loadFavouriteStatus();
+  }, []);
+
   return (
     <View
       style={[
@@ -107,7 +141,6 @@ const styles = StyleSheet.create({
     padding: wp(4),
     justifyContent: "space-between",
     flexDirection: "row"
-    // alignItems: "center"
   },
   productName: {
     fontSize: wp(5),
