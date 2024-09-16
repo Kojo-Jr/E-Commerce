@@ -9,7 +9,7 @@ const MiniHeader = ({ title, navigationText, handleNavigation }) => {
         {title}
       </Text>
       <Pressable onPress={handleNavigation}>
-        <Text>{navigationText}</Text>
+        <Text style={Styles.navigationText}>{navigationText}</Text>
       </Pressable>
     </View>
   );
@@ -28,5 +28,8 @@ const Styles = StyleSheet.create({
   featuredHeaderText: {
     fontSize: wp(5),
     fontWeight: "500"
+  },
+  navigationText: {
+    fontSize: wp(4)
   }
 });

@@ -1,9 +1,7 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
-
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { MaterialIcons } from "@expo/vector-icons";
-
 import { useNavigation } from "@react-navigation/native";
 
 const FeaturedCard = ({
@@ -20,13 +18,7 @@ const FeaturedCard = ({
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("ViewProductsScreen", {
-              params: {
-                featuredImage,
-                category,
-                name,
-                price,
-                description
-              }
+              params: { featuredImage, category, name, price, description }
             })
           }
           style={Styles.featuredImageContainer}
@@ -70,9 +62,15 @@ const Styles = StyleSheet.create({
     width: wp(45),
     borderWidth: 1,
     borderColor: "white",
-    marginTop: wp(2),
+    marginTop: wp(0.5),
     marginRight: wp(2),
-    borderRadius: wp(5)
+    borderRadius: wp(5),
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2, // For Android
+    backgroundColor: "white" // Ensure the background color is maintained
   },
   featuredImageContainer: {
     alignItems: "center",

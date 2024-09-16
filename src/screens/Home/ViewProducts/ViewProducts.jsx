@@ -31,7 +31,7 @@ const ViewProducts = ({ route }) => {
     route.params.params;
 
   return (
-    <SafeAreaView style={styles.container} className="bg-orange-200">
+    <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
 
       <View style={styles.header}>
@@ -92,8 +92,9 @@ const ViewProducts = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-    // backgroundColor: "#FFA500"
+    flex: 1,
+    // backgroundColor: "#FFA500",
+    backgroundColor: "#ffecd2"
   },
   header: {
     position: "absolute",
