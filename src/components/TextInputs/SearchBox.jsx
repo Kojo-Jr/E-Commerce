@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 
 const SearchBox = () => {
-  const [display, setDisplay] = useState(false);
+  const [display, setDisplay] = useState("0");
   return (
     <View style={Styles.searchBar}>
       <View>
@@ -19,7 +19,7 @@ const SearchBox = () => {
       <View style={Styles.cartContainer}>
         <AntDesign name="shoppingcart" size={24} color="black" />
         <View style={Styles.cartBadge}>
-          <Text style={Styles.cartBadgeText}>3</Text>
+          <Text style={Styles.cartBadgeText}>{display}</Text>
         </View>
       </View>
     </View>
