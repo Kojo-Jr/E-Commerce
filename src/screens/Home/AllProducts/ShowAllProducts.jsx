@@ -5,27 +5,32 @@ import { NavigationHeader } from "../../../components/Headers";
 import { useNavigation } from "@react-navigation/native";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { FlashList } from "@shopify/flash-list";
+import { useRoute } from "@react-navigation/native";
 import { ProductCard } from "../../../components/Cards";
-import { productsData } from "../../../../mockData/products.data";
 const ShowAllProducts = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { products } = route.params; // Access the passed products data
+
   const homeScreen = () => {
     navigation.navigate("HomeScreen");
   };
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <NavigationHeader headerTitle="Products" handleNavigation={homeScreen} />
       <View style={styles.flashlistContainer}>
         <FlashList
-          data={productsData}
+          data={products}
           renderItem={({ item }) => {
             return (
               <ProductCard
-                date={item.date}
-                featuredImage={item.featuredImage}
+                featuredImage={item.image}
+                category={item.category}
                 name={item.name}
-                location={item.location}
+                price={item.price}
+                description={item.description}
               />
             );
           }}
@@ -46,8 +51,8 @@ const styles = StyleSheet.create({
   },
   flashlistContainer: {
     marginTop: wp(20),
-    borderWidth: 1,
-    borderColor: "red",
+    // borderWidth: 1,
+    // borderColor: "red",
     flexGrow: 1
   }
 });

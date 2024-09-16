@@ -16,9 +16,21 @@ import { useNavigation } from "@react-navigation/native";
 
 const MainScreen = () => {
   const navigation = useNavigation();
-  const seeAllProducts = () => {
-    navigation.navigate("SeeAllProductsScreen");
+
+  const seeAllFeaturedProducts = () => {
+    navigation.navigate("SeeAllProductsScreen", {
+      products: featuredProducts, // Pass only featured products
+      title: "Featured Products" // Add title for clarity
+    });
   };
+
+  const seeAllProducts = () => {
+    navigation.navigate("SeeAllProductsScreen", {
+      products: productsData, // Pass only all products
+      title: "All Products" // Add title for clarity
+    });
+  };
+
   return (
     <View style={Styles.mainScreenContainer}>
       <StatusBar style="auto" />
@@ -36,7 +48,7 @@ const MainScreen = () => {
               <MiniHeader
                 title="Featured"
                 navigationText="See all"
-                handleNavigation={seeAllProducts}
+                handleNavigation={seeAllFeaturedProducts}
               />
 
               {/* Featured Card */}
