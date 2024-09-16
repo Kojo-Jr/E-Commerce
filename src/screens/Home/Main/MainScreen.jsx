@@ -108,7 +108,7 @@ export default MainScreen;
 const Styles = StyleSheet.create({
   mainScreenContainer: {
     flex: 1,
-    marginTop: wp(5),
+
     padding: wp(1.5),
     backgroundColor: "#fafafa"
   }

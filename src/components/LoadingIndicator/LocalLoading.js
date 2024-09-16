@@ -4,7 +4,7 @@ import React from "react";
 const LocalLoading = () => {
   return (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" />
+      <ActivityIndicator size="large" color={"orange"} />
       <Text>Creating account...</Text>
     </View>
   );

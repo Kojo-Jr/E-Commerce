@@ -1,10 +1,10 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 
 const BannerCard = () => {
   return (
-    <View style={Styles.bannerContainer}>
+    <TouchableOpacity style={Styles.bannerContainer}>
       <Image
         source={require("../../../assets/mock_images/products/Banner/banner.jpeg")}
         style={Styles.imageStyle}
@@ -14,7 +14,7 @@ const BannerCard = () => {
         <Text style={Styles.bannerText}>Discount</Text>
         <Text style={Styles.bannerSubText}>Aug 21 - 26</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
