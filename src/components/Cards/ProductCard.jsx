@@ -18,42 +18,51 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ProductCard = ({ featuredImage, category, name, description, price }) => {
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
-  const isPortrait = height > width; // Check orientation
+  const isPortrait = height > width;
 
-  const [isFavourite, setIsFavourite] = useState(false); // State for favourite
+  const [isFavourite, setIsFavourite] = useState(false);
 
-  // Unique key for this product's favourite status in AsyncStorage
-  const storageKey = `favourite-${name}`;
+  const product = { featuredImage, category, name, description, price };
 
-  // Function to load the favourite state from AsyncStorage
   const loadFavouriteStatus = async () => {
     try {
-      const storedStatus = await AsyncStorage.getItem(storageKey);
-      if (storedStatus !== null) {
-        setIsFavourite(storedStatus === "true");
-      }
+      const storedFavourites = await AsyncStorage.getItem("favourites");
+      const favourites = storedFavourites ? JSON.parse(storedFavourites) : [];
+      setIsFavourite(favourites.some((fav) => fav.name === name));
     } catch (error) {
-      console.log("Error loading favourite status: ", error);
+      console.log("Error loading favourites: ", error);
     }
   };
 
-  // Save the favourite state to AsyncStorage
-  const saveFavouriteStatus = async (value) => {
+  const saveFavourites = async (newFavourites) => {
     try {
-      await AsyncStorage.setItem(storageKey, String(value));
+      await AsyncStorage.setItem("favourites", JSON.stringify(newFavourites));
     } catch (error) {
-      console.log("Error saving favourite status: ", error);
+      console.log("Error saving favourites: ", error);
     }
   };
 
-  // Toggle favourite status
-  const toggleFavourite = () => {
-    const newFavouriteStatus = !isFavourite; // Toggle favourite
-    setIsFavourite(newFavouriteStatus); // Update state
-    saveFavouriteStatus(newFavouriteStatus); // Persist the new state
+  const toggleFavourite = async () => {
+    try {
+      const storedFavourites = await AsyncStorage.getItem("favourites");
+      const favourites = storedFavourites ? JSON.parse(storedFavourites) : [];
+      let newFavourites;
+
+      if (isFavourite) {
+        // Remove from favourites
+        newFavourites = favourites.filter((fav) => fav.name !== name);
+      } else {
+        // Add to favourites
+        newFavourites = [...favourites, product];
+      }
+
+      setIsFavourite(!isFavourite);
+      saveFavourites(newFavourites);
+    } catch (error) {
+      console.log("Error toggling favourite: ", error);
+    }
   };
 
-  // Load the favourite status when the component mounts
   useEffect(() => {
     loadFavouriteStatus();
   }, []);
@@ -69,15 +78,7 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
         <TouchableOpacity
           style={styles.productsImageContainer}
           onPress={() =>
-            navigation.navigate("ViewProductsScreen", {
-              params: {
-                featuredImage,
-                category,
-                name,
-                description,
-                price
-              }
-            })
+            navigation.navigate("ViewProductsScreen", { params: product })
           }
         >
           <Image style={styles.productsImage} source={featuredImage} />
