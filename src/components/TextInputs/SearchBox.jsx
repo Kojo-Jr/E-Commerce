@@ -1,9 +1,10 @@
 import { View, TextInput, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
 
 const SearchBox = () => {
+  const [display, setDisplay] = useState(false);
   return (
     <View style={Styles.searchBar}>
       <View>
