@@ -105,7 +105,7 @@ export default FeaturedCard;
 
 const Styles = StyleSheet.create({
   featuredContainer: {
-    // marginTop: wp(1)
+    marginTop: wp(-0.2)
   },
   featuredHeader: {
     flexDirection: "row",
@@ -121,7 +121,6 @@ const Styles = StyleSheet.create({
     width: wp(45),
     borderWidth: 1,
     borderColor: "white",
-    // marginTop: wp(),
     marginRight: wp(2),
     borderRadius: wp(5),
     shadowColor: "#000",
