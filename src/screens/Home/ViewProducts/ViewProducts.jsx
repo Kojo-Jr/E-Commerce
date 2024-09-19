@@ -1,4 +1,4 @@
-import { React, useState, useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationHeader } from "../../../components/Headers";
 import { CartContext } from "../../../context/AuthContext/CartContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ViewProducts = ({ route }) => {
   const navigation = useNavigation();
@@ -54,6 +55,50 @@ const ViewProducts = ({ route }) => {
   const { products } = route.params;
   const { featuredImage, category, name, price, description } = products;
 
+  const [isFavourite, setIsFavourite] = useState(false); // State for favourite
+  const loadFavouriteStatus = async () => {
+    try {
+      const storedFavourites = await AsyncStorage.getItem("favourites");
+      const favourites = storedFavourites ? JSON.parse(storedFavourites) : [];
+      setIsFavourite(favourites.some((fav) => fav.name === name));
+    } catch (error) {
+      console.log("Error loading favourites: ", error);
+    }
+  };
+
+  const saveFavourites = async (newFavourites) => {
+    try {
+      await AsyncStorage.setItem("favourites", JSON.stringify(newFavourites));
+    } catch (error) {
+      console.log("Error saving favourites: ", error);
+    }
+  };
+
+  const toggleFavourite = async () => {
+    try {
+      const storedFavourites = await AsyncStorage.getItem("favourites");
+      const favourites = storedFavourites ? JSON.parse(storedFavourites) : [];
+      let newFavourites;
+
+      if (isFavourite) {
+        // Remove from favourites
+        newFavourites = favourites.filter((fav) => fav.name !== name);
+      } else {
+        // Add to favourites
+        newFavourites = [...favourites, products];
+      }
+
+      setIsFavourite(!isFavourite);
+      saveFavourites(newFavourites);
+    } catch (error) {
+      console.log("Error toggling favourite: ", error);
+    }
+  };
+
+  useEffect(() => {
+    loadFavouriteStatus();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" />
@@ -62,10 +107,11 @@ const ViewProducts = ({ route }) => {
         <NavigationHeader
           headerTitle="E-Shop"
           IconComponent={AntDesign}
-          iconName="hearto"
+          iconName={isFavourite ? "heart" : "hearto"}
           iconSize={24}
-          iconColor="white"
+          iconColor={isFavourite ? "red" : "black"}
           handleNavigation={navigateToHomeScreen}
+          toggleFavourite={toggleFavourite}
         />
       </View>
 

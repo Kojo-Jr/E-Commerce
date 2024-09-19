@@ -9,7 +9,8 @@ const NavigationHeader = ({
   iconName,
   iconColor,
   iconSize,
-  handleNavigation
+  handleNavigation,
+  toggleFavourite
 }) => {
   return (
     <View
@@ -22,7 +23,7 @@ const NavigationHeader = ({
       <View>
         <Text className="font-medium text-xl">{headerTitle}</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={toggleFavourite}>
         {IconComponent && (
           <IconComponent name={iconName} size={iconSize} color={iconColor} />
         )}
