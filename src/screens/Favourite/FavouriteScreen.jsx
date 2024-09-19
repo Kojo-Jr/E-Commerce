@@ -60,7 +60,7 @@ const FavouriteScreen = () => {
       const timer = setTimeout(() => {
         loadFavourites(); // Load favourites
         setIsLoading(false); // Set loading to false once data is loaded
-      }, 2000);
+      }, 500);
 
       return () => clearTimeout(timer); // Cleanup timer
     }, [])
