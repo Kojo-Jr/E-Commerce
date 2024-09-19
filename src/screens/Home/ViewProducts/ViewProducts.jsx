@@ -86,11 +86,11 @@ const ViewProducts = ({ route }) => {
             <Text style={styles.price}>{price}</Text>
             <View style={styles.quantitySelector}>
               <TouchableOpacity onPress={decreaseQuantity}>
-                <AntDesign name="minus" size={30} color="black" />
+                <AntDesign name="minus" size={40} color="black" />
               </TouchableOpacity>
               <Text style={styles.quantityText}>{display}</Text>
               <TouchableOpacity onPress={increaseQuantity}>
-                <Ionicons name="add" size={30} color="black" />
+                <Ionicons name="add" size={40} color="black" />
               </TouchableOpacity>
             </View>
           </View>
