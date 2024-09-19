@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -7,7 +7,8 @@ import {
   StyleSheet,
   ScrollView,
   useWindowDimensions,
-  SafeAreaView
+  SafeAreaView,
+  Alert
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -17,18 +18,41 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationHeader } from "../../../components/Headers";
+import { CartContext } from "../../../context/AuthContext/CartContext";
 
 const ViewProducts = ({ route }) => {
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
   const isPortrait = height > width;
 
+  const { addToCart } = useContext(CartContext); // Get the addToCart function from context
+  const [display, setDisplay] = useState(0);
+
+  const increaseQuantity = () => {
+    setDisplay((prevDisplay) => prevDisplay + 1);
+  };
+  const decreaseQuantity = () => {
+    if (display > 1) {
+      setDisplay((prevDisplay) => prevDisplay - 1);
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (display > 0) {
+      addToCart(display); // Pass the selected quantity back to parent
+      Alert.alert("Added to cart");
+      setDisplay(0);
+    } else {
+      Alert.alert("Please select quantity");
+    }
+  };
+
   const navigateToHomeScreen = () => {
     navigation.navigate("HomeScreen");
   };
 
-  const { featuredImage, category, name, price, description } =
-    route.params.params;
+  const { products } = route.params;
+  const { featuredImage, category, name, price, description } = products;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,12 +85,12 @@ const ViewProducts = ({ route }) => {
           <View style={styles.priceQuantityContainer}>
             <Text style={styles.price}>{price}</Text>
             <View style={styles.quantitySelector}>
-              <TouchableOpacity>
-                <AntDesign name="minus" size={26} color="black" />
+              <TouchableOpacity onPress={decreaseQuantity}>
+                <AntDesign name="minus" size={30} color="black" />
               </TouchableOpacity>
-              <Text style={styles.quantityText}>1</Text>
-              <TouchableOpacity>
-                <Ionicons name="add" size={26} color="black" />
+              <Text style={styles.quantityText}>{display}</Text>
+              <TouchableOpacity onPress={increaseQuantity}>
+                <Ionicons name="add" size={30} color="black" />
               </TouchableOpacity>
             </View>
           </View>
@@ -78,7 +102,10 @@ const ViewProducts = ({ route }) => {
           <TouchableOpacity style={[styles.button, styles.chatButton]}>
             <Text style={styles.buttonText}>Chat</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.addToCartButton]}>
+          <TouchableOpacity
+            style={[styles.button, styles.addToCartButton]}
+            onPress={handleAddToCart}
+          >
             <Text style={styles.buttonText}>Add To Cart</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.button, styles.buyNowButton]}>

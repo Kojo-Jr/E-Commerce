@@ -22,7 +22,7 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
 
   const [isFavourite, setIsFavourite] = useState(false);
 
-  const product = { featuredImage, category, name, description, price }; // Add product to favourites
+  const products = { featuredImage, category, name, description, price }; // Add product to favourites
 
   const loadFavouriteStatus = async () => {
     try {
@@ -53,7 +53,7 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
         newFavourites = favourites.filter((fav) => fav.name !== name);
       } else {
         // Add to favourites
-        newFavourites = [...favourites, product];
+        newFavourites = [...favourites, products];
       }
 
       setIsFavourite(!isFavourite);
@@ -78,7 +78,9 @@ const ProductCard = ({ featuredImage, category, name, description, price }) => {
         <TouchableOpacity
           style={styles.productsImageContainer}
           onPress={() =>
-            navigation.navigate("ViewProductsScreen", { params: product })
+            navigation.navigate("ViewProductsScreen", {
+              products: products // Pass the product object
+            })
           }
         >
           <Image style={styles.productsImage} source={featuredImage} />

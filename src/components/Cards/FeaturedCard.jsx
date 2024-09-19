@@ -16,7 +16,7 @@ const FeaturedCard = ({
 
   const [isFavourite, setIsFavourite] = useState(false); // State for favourite
 
-  const product = { featuredImage, category, name, description, price }; // Add product to favourites
+  const products = { featuredImage, category, name, description, price }; // Add product to favourites
 
   // Function to load the favourite state from AsyncStorage
   const loadFavouriteStatus = async () => {
@@ -50,7 +50,7 @@ const FeaturedCard = ({
         newFavourites = favourites.filter((fav) => fav.name !== name);
       } else {
         // Add to favourites
-        newFavourites = [...favourites, product];
+        newFavourites = [...favourites, products];
       }
 
       setIsFavourite(!isFavourite);
@@ -71,7 +71,7 @@ const FeaturedCard = ({
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("ViewProductsScreen", {
-              params: { featuredImage, category, name, price, description }
+              products: products // Pass only featured products
             })
           }
           style={Styles.featuredImageContainer}

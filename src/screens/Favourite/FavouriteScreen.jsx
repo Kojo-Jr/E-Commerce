@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationHeader } from "../../components/Headers";
@@ -15,6 +22,15 @@ const FavouriteScreen = () => {
   const [favourites, setFavourites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Function to navigate to product details screen
+  const navigateToProductDetails = (item) => {
+    navigation.navigate("Home", {
+      screen: "ViewProductsScreen", // Navigates to the product detail screen
+      params: { products: item } // Passing the item as a param
+    });
+  };
+
+  // Function to truncate text
   const truncateText = (text, maxLength) => {
     if (text.length > maxLength) {
       return text.slice(0, maxLength) + "...";
@@ -59,7 +75,10 @@ const FavouriteScreen = () => {
   }
 
   const renderFavouriteItem = ({ item }) => (
-    <View style={styles.favouriteItem}>
+    <TouchableOpacity
+      style={styles.favouriteItem}
+      onPress={() => navigateToProductDetails(item)} // Pass the individual item here
+    >
       <Image style={styles.image} source={item.featuredImage} />
       <View>
         <Text style={styles.name}>{item.name}</Text>
@@ -68,7 +87,7 @@ const FavouriteScreen = () => {
         </Text>
         <Text style={styles.price}>{item.price}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -84,6 +103,7 @@ const FavouriteScreen = () => {
             data={favourites}
             renderItem={renderFavouriteItem}
             keyExtractor={(item) => item.name}
+            showsVerticalScrollIndicator={false}
           />
         ) : (
           <Text style={styles.noFavouritesText}>No favourites yet.</Text>

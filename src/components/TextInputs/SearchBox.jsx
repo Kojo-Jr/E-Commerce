@@ -1,10 +1,24 @@
-import { View, TextInput, Text, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
+import React, { useContext } from "react";
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
 import { AntDesign } from "@expo/vector-icons";
+import { CartContext } from "../../context/AuthContext/CartContext";
+import { useNavigation } from "@react-navigation/native";
 
 const SearchBox = () => {
-  const [display, setDisplay] = useState("0");
+  const navigation = useNavigation();
+
+  const goToCart = () => {
+    navigation.navigate("CartScreen");
+  };
+
+  const { cartItems } = useContext(CartContext);
   return (
     <View style={Styles.searchBar}>
       <View>
@@ -16,12 +30,12 @@ const SearchBox = () => {
         />
       </View>
 
-      <View style={Styles.cartContainer}>
+      <TouchableOpacity style={Styles.cartContainer} onPress={goToCart}>
         <AntDesign name="shoppingcart" size={24} color="black" />
         <View style={Styles.cartBadge}>
-          <Text style={Styles.cartBadgeText}>{display}</Text>
+          <Text style={Styles.cartBadgeText}>{cartItems}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
