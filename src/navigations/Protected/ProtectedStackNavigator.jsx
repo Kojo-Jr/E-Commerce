@@ -1,4 +1,3 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import CategoriesStackNavigator from "./CategoriesStack/CategoriesStackNavigator";
 import TabNavigation from "../TabNavigation/TabNavigation";
